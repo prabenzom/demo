@@ -6,8 +6,22 @@ params:
 - name: repository
   value: $(params.tkn-repo)
 tasks:
-- name: pipeline-task
-  taskSpec:
-    steps:
-    - image: busybox
-      script: echo "Hello World!"
+- name: git-clone
+  workspaces:
+  - name: output
+    workspace: default-workspace
+  taskRef:        
+    # Resolver name, in this case resolving the remote task using
+    # Cloud Build's resolver and Cloud Build repository authentication
+    resolver: gcb-repo
+    # Resolver params, used to indicate where a resolver should fetch
+    # a remote task from.
+    params:
+    - name: repository
+      value: $(params.repository)
+    - name: revision
+      value: "main"
+    - name: pathInRepo
+      value: "task/git-clone/0.9/git-clone.yaml"
+    # add other tasks here and mount default-workspace to have access
+    # to the cloned repository
