@@ -23,5 +23,5 @@ tasks:
       value: "main"
     - name: pathInRepo
       value: "task/git-clone/0.9/git-clone.yaml"
-... # add other tasks here and mount default-workspace to have access
+    # add other tasks here and mount default-workspace to have access
     # to the cloned repository
